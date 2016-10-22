@@ -9,8 +9,8 @@ app.config.update(dict(
     DATABASE=os.path.join(app.root_path, 'flaskr.db'),
     DEBUG=True,
     SECRET_KEY='uoOBAh6F4yKJQXXQgjLSYy8bxuyri58F',
-    USERNAME='admin',
-    PASSWORD='default'
+    USERNAME='kperry@yomail.com',
+    PASSWORD='tswifty'
 ))
 app.config.from_envvar('SUBSCRIBELY_SETTINGS', silent=True)
 
@@ -77,6 +77,7 @@ def login():
         elif request.form['password'] != app.config['PASSWORD']:
             error = 'Invalid password'
         else:
+            print('success')
             session['logged_in'] = True
             flash('You were logged in')
             return redirect(url_for('dashboard'))

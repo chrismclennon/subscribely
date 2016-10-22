@@ -1,8 +1,14 @@
-CREATE TABLE IF NOT EXISTS users (
+-- noinspection SqlNoDataSourceInspectionForFile
+
+DROP TABLE IF EXISTS users;
+CREATE TABLE users (
   user_id INT PRIMARY KEY,
-  name TEXT
+  email TEXT,
+  password TEXT
 );
-CREATE TABLE IF NOT EXISTS user_billing (
+
+DROP TABLE IF EXISTS user_billing;
+CREATE TABLE user_billing (
   -- Currently assumes: 1 credit card per customer
   user_id INT REFERENCES users(user_id),
   name_on_card TEXT,
@@ -12,11 +18,15 @@ CREATE TABLE IF NOT EXISTS user_billing (
   security_code INT,
   zip_code TEXT
 );
-CREATE TABLE IF NOT EXISTS services (
+
+DROP TABLE IF EXISTS services;
+CREATE TABLE services (
   service_id INT PRIMARY KEY,
   name TEXT
 );
-CREATE TABLE IF NOT EXISTS user_subscriptions (
+
+DROP TABLE IF EXISTS user_subscriptions;
+CREATE TABLE user_subscriptions (
   user_id INT REFERENCES users(user_id),
   service_id INT REFERENCES services(service_id),
   is_active BOOLEAN,
@@ -24,3 +34,5 @@ CREATE TABLE IF NOT EXISTS user_subscriptions (
   next_charge_dt DATE,
   next_charge_amt DOUBLE PRECISION
 );
+
+INSERT INTO users (email, password) VALUES ('kperry@yomail.com', 'tswifty')
