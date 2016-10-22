@@ -1,0 +1,3 @@
+graft subscribely/templates
+graft subscribely/static
+include subscribely/schema.sql
