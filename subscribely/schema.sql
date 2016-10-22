@@ -14,6 +14,8 @@ CREATE TABLE IF NOT EXISTS services (
 CREATE TABLE IF NOT EXISTS user_subscriptions (
   user_id INT REFERENCES users(user_id),
   service_id INT REFERENCES services(service_id),
+  username TEXT,
+  password TEXT,
   is_active BOOLEAN,
   activity_ts TIMESTAMP,
   next_charge_dt DATE,
