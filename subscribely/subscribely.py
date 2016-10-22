@@ -52,7 +52,7 @@ def close_db(error):
 @app.route('/')
 def dashboard():
     db = get_db()
-    cur = db.execute('select * from services')
+    cur = db.execute('select * from user_subscriptions')
     subscriptions = cur.fetchall()
     return render_template('dashboard.html', subscriptions=subscriptions)
 
