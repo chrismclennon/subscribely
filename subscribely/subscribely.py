@@ -50,7 +50,7 @@ def close_db(error):
 @app.route('/')
 def dashboard():
     db = get_db()
-    cur = db.execute('select title, text from entries order by id desc')
+    cur = db.execute('select * from services')
     subscriptions = cur.fetchall()
     return render_template('dashboard.html', subscriptions=subscriptions)
 
