@@ -88,3 +88,10 @@ def logout():
     session.pop('logged_in', None)
     flash('You were logged out')
     return redirect(url_for('dashboard'))
+
+@app.route('/payment_methods', methods=['GET', 'POST'])
+def payment_methods():
+    db = get_db()
+    cur = db.execute('select * from user_modo')
+    payment_methods = cur.fetchall()
+    return render_template('account-info.html', payment_methods=payment_methods)
