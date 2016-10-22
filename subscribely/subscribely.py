@@ -27,7 +27,7 @@ app.config.update(dict(
     USERNAME='admin',
     PASSWORD='default'
 ))
-app.config.from_envvar('FLASKR_SETTINGS', silent=True)
+app.config.from_envvar('SUBSCRIBELY_SETTINGS', silent=True)
 
 
 def connect_db():
@@ -72,8 +72,8 @@ def close_db(error):
 def show_entries():
     db = get_db()
     cur = db.execute('select title, text from entries order by id desc')
-    entries = cur.fetchall()
-    return render_template('show_entries.html', entries=entries)
+    subscriptions = cur.fetchall()
+    return render_template('dashboard.html', subscriptions=subscriptions)
 
 
 @app.route('/add', methods=['POST'])
@@ -85,7 +85,7 @@ def add_entry():
                [request.form['title'], request.form['text']])
     db.commit()
     flash('New entry was successfully posted')
-    return redirect(url_for('show_entries'))
+    return redirect(url_for('dashboard'))
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -107,4 +107,4 @@ def login():
 def logout():
     session.pop('logged_in', None)
     flash('You were logged out')
-    return redirect(url_for('show_entries'))
+    return redirect(url_for('dashboard'))
