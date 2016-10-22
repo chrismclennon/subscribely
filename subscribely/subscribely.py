@@ -1,19 +1,8 @@
 # -*- coding: utf-8 -*-
-"""
-    Flaskr
-    ~~~~~~
-
-    A microblog example application written as Flask tutorial with
-    Flask and sqlite3.
-
-    :copyright: (c) 2015 by Armin Ronacher.
-    :license: BSD, see LICENSE for more details.
-"""
 
 import os
 from sqlite3 import dbapi2 as sqlite3
-from flask import Flask, request, session, g, redirect, url_for, abort, \
-     render_template, flash
+from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
 
 
 # create our little application :)
@@ -69,12 +58,23 @@ def close_db(error):
 
 
 @app.route('/')
-def show_entries():
+def dashboard():
     db = get_db()
     cur = db.execute('select title, text from entries order by id desc')
     subscriptions = cur.fetchall()
     return render_template('dashboard.html', subscriptions=subscriptions)
 
+@app.route('/subscriptions/<id>/enable', methods=['POST'])
+def enable_subscription():
+    # TODO: authenticate and enable subscription
+    flash('Subscription successfully enabled.')
+    return redirect(url_for('dashboard'))
+
+@app.route('/subscriptions/<id>/disable', methods=['POST'])
+def disable_subscription():
+    # TODO: authenticate and disable subscription
+    flash('Subscription successfully disabled.')
+    return redirect(url_for('dashboard'))
 
 @app.route('/add', methods=['POST'])
 def add_entry():
@@ -99,7 +99,7 @@ def login():
         else:
             session['logged_in'] = True
             flash('You were logged in')
-            return redirect(url_for('show_entries'))
+            return redirect(url_for('dashboard'))
     return render_template('login.html', error=error)
 
 
