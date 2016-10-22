@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 # Load default config and override config from an environment variable
 app.config.update(dict(
-    DATABASE=os.path.join(app.root_path, 'flaskr.db'),
+    DATABASE=os.path.join(app.root_path, 'subscribely.db'),
     DEBUG=True,
     SECRET_KEY='uoOBAh6F4yKJQXXQgjLSYy8bxuyri58F',
     USERNAME='admin',
