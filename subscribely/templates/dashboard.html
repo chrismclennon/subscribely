@@ -1,21 +1,23 @@
 {% extends "layout.html" %}
 {% block body %}
   {% if session.logged_in %}
-    <form action="{{ url_for('add_entry') }}" method="post" class="add-entry">
-      <dl>
-        <dt>Title:
-        <dd><input type="text" size="30" name="title">
-        <dt>Text:
-        <dd><textarea name="text" rows="5" cols="40"></textarea>
-        <dd><input type="submit" value="Share">
-      </dl>
-    </form>
   {% endif %}
+    <h2>All Subscriptions</h2>
   <ul class="entries">
+    <li><div class="subscription"><i class="fa fa-spotify" aria-hidden="true"></i> &nbsp;[Name of Company Here] &nbsp;&nbsp;&nbsp;&nbsp; Status: Active <button>Deactivate</button>
+    <br>
+    Card ending in [insert card data here] &nbsp;&nbsp;&nbsp;&nbsp; Next Payment Date [insert date due]
+    </div></li>
   {% for entry in entries %}
     <li><h2>{{ entry.title }}</h2>{{ entry.text|safe }}</li>
   {% else %}
-    <li><em>Unbelievable.  No entries here so far</em></li>
+    <li>    <div class="global-nav"> <a href="#wut">What We Do</a> | <a href="#about">About Our Team</a> | <a href="#contact">Contact Us</a>
+    </div>
+    <div id="default">All your subscriptions in one place. Simple.</div></li>
   {% endfor %}
   </ul>
+  <div class="wut"><a name="wut"></a>Here's where we say what we do</div>
+  <div class="about"><a name="about"></a>Here's where we talk about our team</div>
+  <div class="contact"><a name="contact"></a>Here's where people can fill out a form to contact us? This is fluff</div>
+  <div id="footer">&copy; Subscribely</div>
 {% endblock %}
