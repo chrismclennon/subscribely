@@ -35,4 +35,4 @@ CREATE TABLE user_subscriptions (
   next_charge_amt DOUBLE PRECISION
 );
 
-INSERT INTO users (email, password) VALUES ('kperry@yomail.com', 'tswifty')
+INSERT INTO users VALUES (1, 'kperry@yomail.com', 'tswifty');
