@@ -38,7 +38,7 @@ hr              { border-color: lightgray; }
 .center         { margin: auto; width: 90%; padding: 10px; }
 .btn            { width: 180px; float: right; margin: 5px;} 
 
-div#loading {
+div#loading     {
     width: 35px;
     height: 35px;
     display: none;

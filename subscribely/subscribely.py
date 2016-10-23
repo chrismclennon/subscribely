@@ -87,7 +87,7 @@ def enable_subscription(id):
 
     if (result):
         flash('Subscription successfully enabled.')
-        cursor.execute('UPDATE user_subscriptions SET is_active=? WHERE subscription_id=?', (True, id))
+        cursor.execute('UPDATE user_subscriptions SET is_active=?, next_charge_dt=? WHERE subscription_id=?', (True, '2016-11-22', id))
         get_db().commit()
     else:
         flash('Sorry, something went wrong!')
@@ -109,6 +109,8 @@ def enable_gift_card(id):
     result = False
 
     gift_card_status = spotify.gift_card_status()
+    _sp = gift_card_status.split('/')
+    formatted_date = '-'.join(['20' + _sp[2], _sp[0], _sp[1]])
     #if (gift_card_status):
         #cursor.execute('UPDATE user_subscriptions SET is_active=? WHERE subscription_id=?', (True, id))
         #get_db().commit()
@@ -119,7 +121,7 @@ def enable_gift_card(id):
 
     if (result):
         flash('Gift card successfully redeemed.')
-        cursor.execute('UPDATE user_subscriptions SET is_active=? WHERE subscription_id=?', (True, id))
+        cursor.execute('UPDATE user_subscriptions SET is_active=?, next_charge_dt=? WHERE subscription_id=?', (True, formatted_date, id))
         get_db().commit()
     else:
         flash('Sorry, something went wrong!')
