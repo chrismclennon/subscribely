@@ -124,6 +124,19 @@ def payment_methods():
         print(request.form['credit_card_number'])
     return render_template('account-info.html', error=error)
 
+@app.route('/update_credentials', methods=['GET', 'POST'])
+def update_credentials():
+    error = None
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        connection = get_db()
+        cursor = get_db().cursor()
+        cursor.execute('UPDATE user_subscriptions SET username=?, password=? WHERE user_id=1 AND service_id=1',
+            (request.form['username'], request.form['password']))
+        connection.commit()
+    return render_template('update_credentials.html', error=error)
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     error = None
