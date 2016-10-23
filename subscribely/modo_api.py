@@ -7,15 +7,17 @@ import os
 import requests
 import time
 
-token = jwt.encode({
-        'api_key': os.environ['MODO_API_KEY'],
-        'iat': math.floor(time.time())
-    },
-    os.environ['MODO_API_SECRET_KEY'],
-    algorithm='HS256')
-headers = {'Authorization': 'Token ' + token.decode('utf-8'),
-        'Content-Type': 'application/json'}
-#        'Accept': 'application/json'}
+def make_header():
+    token = jwt.encode({
+            'api_key': os.environ['MODO_API_KEY'],
+            'iat': math.floor(time.time())
+        },
+        os.environ['MODO_API_SECRET_KEY'],
+        algorithm='HS256')
+    headers = {'Authorization': 'Token ' + token.decode('utf-8'),
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'}
+    return headers
 
 def register_user(phone_number, first_name=None, last_name=None, email=None):
     payload = json.dumps({
@@ -25,19 +27,19 @@ def register_user(phone_number, first_name=None, last_name=None, email=None):
         'email': email,
     })
     response = requests.post('https://hack.modoapi.com/1.0.0-dev/people/register',
-            headers=headers, data=payload)
+            headers=make_header(), data=payload)
     return response
 
 def get_user_profile(account_id):
     payload = json.dumps({'account_id': account_id}) 
     response = requests.post('https://hack.modoapi.com/1.0.0-dev/people/profile',
-            headers=headers, data=payload)
+        headers=make_header(), data=payload)
     return response
 
 def delete_user(account_id):
     payload = json.dumps({'account_id': account_id})
     response = requests.post('https://hack.modoapi.com/1.0.0-dev/people/delete',
-            headers=headers, data=payload)
+        headers=make_header(), data=payload)
     return response
 
 def add_credit_card(modo_account_id, name_on_card, credit_card_number,
@@ -59,11 +61,34 @@ def add_credit_card(modo_account_id, name_on_card, credit_card_number,
         }]
     })
     response = requests.post('https://hack.modoapi.com/1.0.0-dev/vault/add',
-            headers=headers, data=payload)
+        headers=make_header(), data=payload)
     return response
 
-def mint_coin():
-    raise NotImplementedError
+def mint_coin(account_id, amount, vault_id):
+    payload = json.dumps({
+        'account_id': account_id,
+        'amount': amount,
+        'description': 'Subscribely minting coin.',
+        'inputs': [{
+            'instrument_id': vault_id,
+            'max_amount': amount
+        }],
+        'outputs': [{
+            'instrument_id': vault_id,
+            'instrument_type': 'OPEN_CARD',
+            'max_amount': amount
+        }],
+    })
+    response = requests.post('https://hack.modoapi.com/1.0.0-dev/coin/mint',
+        headers=make_header(), data=payload)
+    return response
 
-def operate_coin():
-    raise NotImplementedError
+def operate_coin(coin_id):
+    payload = json.dumps({
+        'coin_id': coin_id,
+        'reason': 'Subscribely transmitting payment.'
+    })
+    response = requests.post('https://hack.modoapi.com/1.0.0-dev/coin/operate',
+        headers=make_header(), data=payload)
+    return response
+

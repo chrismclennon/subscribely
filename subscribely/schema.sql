@@ -37,4 +37,5 @@ CREATE TABLE IF NOT EXISTS transaction_history (
 );
 
 INSERT INTO users VALUES (1, 'kperry@yomail.com', 'tswifty');
-
+INSERT INTO services VALUES (1, 'Spotify');
+INSERT INTO user_subscriptions VALUES (1, 1, 'kperry', 'hunter2', 1, '2016-10-22 00:00:00', '2016-11-01', 10.00);
