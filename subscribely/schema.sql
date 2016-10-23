@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS user_modo;
 CREATE TABLE IF NOT EXISTS user_modo (
   user_id INT PRIMARY KEY REFERENCES users(user_id),
   modo_account_id TEXT,
+  last_four_credit_card TEXT
 );
 DROP TABLE IF EXISTS services;
 CREATE TABLE IF NOT EXISTS services (
