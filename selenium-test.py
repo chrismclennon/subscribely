@@ -2,12 +2,6 @@ import os
 import time
 from selenium import webdriver
 
-def select(element, option_text):
-    for option in element.find_elements_by_tag_name('option'):
-        if option.text == option_text:
-            option.click()
-            break
-
 driver = webdriver.Chrome()
 driver.implicitly_wait(10)
 
@@ -22,27 +16,24 @@ success_notification = driver.find_element_by_xpath("//*[contains(text(), 'You a
 print(success_notification.text)
 
 driver.get("https://www.spotify.com/us/purchase/panel/#__main-pci-credit-card")
-time.sleep(10)
-print(len(driver.window_handles))
-inputs = driver.find_elements_by_tag_name('input')
-print(len(inputs))
-for e in inputs:
-    print("id: " + e.get_attribute('id'))
-    print("class: " + e.get_attribute('class'))
-payment_form = driver.find_element_by_xpath("//*[@data-encrypted-name='number']")
-driver.find_element_by_id("payment-form").send_keys("1111222233334444")
-#driver.find_element_by_css_selector("#cardnumber").send_keys("1111222233334444")
-select(driver.find_element_by_id("expiry-month"), "January")
-select(driver.find_element_by_id("expiry-month"), "20")
-driver.find_element_by_id("security-code").send_keys("123")
-driver.find_element_by_id("zip-code").send_keys("78787")
+iframes = driver.find_elements_by_tag_name('iframe')
+driver.switch_to.frame(iframes[0])
 
+driver.find_element_by_id("cardnumber").send_keys("1111222233334444")
+select(driver.find_element_by_id("expiry-month"), "01")
+select(driver.find_element_by_id("expiry-month"), "2020")
+driver.find_element_by_id("security-code").send_keys("123")
+zip_code = driver.find_element_by_id("zip-code")
+zip_code.clear()
+zip_code.send_keys("78787")
+
+driver.switch_to_default_content()
 payment_button = driver.find_element_by_xpath("//*[contains(text(), 'Start my Spotify Premium')]")
 payment_button.click()
 
-error_container = driver.find_element_by_xpath("//*[@class='error-container']")
+error_container = driver.find_element_by_class_name("error-container")
 error_notifications = error_container.find_elements_by_tag_name('li')
-print("cc_entry errors: " + len(error_notifications))
+print("cc_entry errors: " + str(len(error_notifications)))
 driver.quit()
 
 
