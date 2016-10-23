@@ -57,9 +57,10 @@ def close_db(error):
 @app.route('/')
 def dashboard():
     db = get_db()
-    cur = db.execute('select * from user_subscriptions '
-        'inner join services on user_subscriptions.service_id = services.service_id '
-        'inner join user_modo on user_subscriptions.user_id = user_modo.user_id')
+    cur = db.execute('SELECT * FROM user_subscriptions INNER JOIN services ON user_subscriptions.service_id = services.service_id INNER JOIN user_modo ON user_subscriptions.user_id = user_modo.user_id')
+#    cur = db.execute('select * from user_subscriptions '
+#        'inner join services on user_subscriptions.service_id = services.service_id '
+#        'inner join user_modo on user_subscriptions.user_id = user_modo.user_id')
     subscriptions = cur.fetchall()
     print(subscriptions)
     return render_template('dashboard.html', subscriptions=subscriptions)
@@ -123,6 +124,19 @@ def payment_methods():
         )
         print(request.form['credit_card_number'])
     return render_template('account-info.html', error=error)
+
+@app.route('/update_credentials', methods=['GET', 'POST'])
+def update_credentials():
+    error = None
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        connection = get_db()
+        cursor = get_db().cursor()
+        cursor.execute('UPDATE user_subscriptions SET username=?, password=? WHERE user_id=1 AND service_id=1',
+            (request.form['username'], request.form['password']))
+        connection.commit()
+    return render_template('update_credentials.html', error=error)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
