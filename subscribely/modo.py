@@ -41,7 +41,6 @@ def process_payment_virtual_cc(connection, user_id, service_id):
     amount = cursor.execute('SELECT next_charge_amt FROM user_subscriptions WHERE user_id = ? AND service_id = ?;', (user_id, service_id)).fetchone()[0]
     vault_id = cursor.execute('SELECT modo_vault_id FROM user_modo WHERE user_id = ?;', (user_id,)).fetchone()[0] 
 
-    print(mint_response.text)
     mint_response = modo_api.mint_coin(modo_account_id, amount, vault_id)
     if mint_response.status_code != 200:
         raise Exception('Response status code <{}>'.format(response.status_code))

@@ -8,7 +8,7 @@ setup(
         'flask',
         'selenium',
         'pyjwt',
-        'requests'
+        'requests',
     ],
     setup_requires=[
         'pytest-runner',

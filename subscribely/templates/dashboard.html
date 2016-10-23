@@ -6,14 +6,15 @@
   <ul class="entries">
   {% for s in subscriptions %}
     <li><div class="{{ 'subscription even' if loop.index is divisibleby 2 else 'subscription odd' }}"><img src="../static/{{s.name}}.png" alt="{{s.name}} Logo"> &nbsp; {{s.name}} &nbsp;&nbsp;&nbsp;&nbsp; Status: {% if s.is_active %} Active {% else %} Inactive {% endif %} 
+
     {% if s.is_active %}
-    <a class="btn btn-danger" href="{{ url_for('disable_subscription', id=s.id) }}">Deactivate</a>
+    <a class="btn btn-danger" href="{{ url_for('disable_subscription', id=s.subscription_id) }}">Deactivate</a>
     <br>
 
-    Card ending in: {{s.last_four_credit_card}}  &nbsp;&nbsp;&nbsp;&nbsp; Next Payment Date: {{s.next_charge_dt}} &nbsp;&nbsp;&nbsp;&nbsp; Next Payment Charge: ${{s.next_charge_amt}}<br>
+    Card: ****-****-****-{{s.last_four_credit_card}}  &nbsp;&nbsp;&nbsp;&nbsp; Next Payment Date: {{s.next_charge_dt}} &nbsp;&nbsp;&nbsp;&nbsp; Next Payment Charge: ${{s.next_charge_amt}}<br>
     <a href="{{ url_for('update_credentials') }}">Change credentials</a>
     {% else %}
-    <a class="btn btn-success" href="{{ url_for('enable_subscription', id=s.id) }}">Activate</a>
+    <a class="btn btn-success" href="{{ url_for('enable_subscription', id=s.subscription_id) }}">Activate</a>
     <a href="{{ url_for('update_credentials') }}">Set credentials</a>
     {% endif %}
     </div></li>
