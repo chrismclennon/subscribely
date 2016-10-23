@@ -65,13 +65,23 @@ def enter_gift_card_code(code):
 
         if (len(invalid_notifications) > 0):
             return False
-
         return True
     finally:
         driver.quit()
 
-def enter_credit_card_info():
+def subscribe_with_credit_card_info(ccn, month, year, cvv, zip):
     try:
+        month = str(month)
+        year = str(year)[-2:]
+        cvv = str(cvv)
+
+        print("subscribing with cc... ")
+        print("ccn: " + ccn)
+        print("month: " + month)
+        print("year: " + year)
+        print("cvv: " + cvv)
+        print("zip: " + zip)
+
         driver = webdriver.Chrome()
         driver.implicitly_wait(10)
 
@@ -89,13 +99,13 @@ def enter_credit_card_info():
         iframes = driver.find_elements_by_tag_name('iframe')
         driver.switch_to.frame(iframes[0])
 
-        driver.find_element_by_id("cardnumber").send_keys("1111222233334444")
-        select(driver.find_element_by_id("expiry-month"), "01")
-        select(driver.find_element_by_id("expiry-month"), "2020")
-        driver.find_element_by_id("security-code").send_keys("123")
+        driver.find_element_by_id("cardnumber").send_keys(ccn)
+        select(driver.find_element_by_id("expiry-month"), month)
+        select(driver.find_element_by_id("expiry-year"), year)
+        driver.find_element_by_id("security-code").send_keys(cvv)
         zip_code = driver.find_element_by_id("zip-code")
         zip_code.clear()
-        zip_code.send_keys("78787")
+        zip_code.send_keys(zip)
 
         driver.switch_to_default_content()
         payment_button = driver.find_element_by_xpath("//*[contains(text(), 'Start my Spotify Premium')]")
@@ -104,5 +114,9 @@ def enter_credit_card_info():
         error_container = driver.find_element_by_class_name("error-container")
         error_notifications = error_container.find_elements_by_tag_name('li')
         print("cc_entry errors: " + str(len(error_notifications)))
+
+        #if (len(error_notifications) > 0):
+            #return False
+        return True
     finally:
         driver.quit()

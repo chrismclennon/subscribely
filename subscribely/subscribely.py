@@ -65,42 +65,54 @@ def dashboard():
     return render_template('dashboard.html', subscriptions=subscriptions)
 
 
-@app.route('/subscriptions/<id>/enable', methods=['POST'])
+@app.route('/subscriptions/<id>/enable', methods=['GET'])
 def enable_subscription(id):
     db = get_db()
-    cursor = db.execute('select * from user_subscriptions where subscription_id = ?', (id,))
+    cursor = db.execute('select user_id, service_id, is_active from user_subscriptions where subscription_id = ?', (id,))
     subscription = cursor.fetchone()
+    user_id = subscription[0]
+    service_id = subscription[1]
+    is_active = subscription[2]
 
-    if (subscription.is_active):
+    if (is_active):
         return
 
     result = False
+
+    """
     gift_card_status = spotify.gift_card_status()
     if (gift_card_status):
-        cursor.execute('UPDATE user_subscription SET is_active=? WHERE subscription_id=?', (True, id))
-        connection.commit()
+        cursor.execute('UPDATE user_subscriptions SET is_active=? WHERE subscription_id=?', (True, id))
+        get_db().commit()
     else:
         #TODO: code = from modo
         result = spotify.enter_gift_card_code(code)
+    """
+
+    data = modo.process_payment_virtual_cc(get_db(), user_id, service_id)
+    result = spotify.subscribe_with_credit_card_info(data['pan'], data['exp_month'], data['exp_year'], data['cvv'], '78787')
 
     if (result):
         flash('Subscription successfully enabled.')
+        cursor.execute('UPDATE user_subscriptions SET is_active=? WHERE subscription_id=?', (True, id))
+        get_db().commit()
     else:
         flash('Sorry, something went wrong!')
 
     return redirect(url_for('dashboard'))
 
-@app.route('/subscriptions/<id>/disable', methods=['POST'])
+@app.route('/subscriptions/<id>/disable', methods=['GET'])
 def disable_subscription(id):
     db = get_db()
-    cursor = db.execute('select * from user_subscriptions where subscription_id = ?', (id,))
+    cursor = db.execute('select is_active from user_subscriptions where subscription_id = ?', (id,))
     subscription = cursor.fetchone()
+    is_active = subscription[0]
 
-    if not subscription:
+    if not is_active:
         return
 
-    cursor.execute('UPDATE user_subscription SET is_active=? WHERE subscription_id=?', (False, id))
-    connection.commit()
+    cursor.execute('UPDATE user_subscriptions SET is_active=? WHERE subscription_id=?', (False, id))
+    get_db().commit()
 
     flash('Subscription successfully disabled.')
     return redirect(url_for('dashboard'))

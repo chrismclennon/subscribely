@@ -7,6 +7,8 @@ setup(
     install_requires=[
         'flask',
         'selenium',
+        'pyjwt',
+        'requests',
     ],
     setup_requires=[
         'pytest-runner',

@@ -5,7 +5,7 @@
     <h2>All Subscriptions</h2>
   <ul class="entries">
   {% for s in subscriptions %}
-    <li><div class="{{ 'subscription odd' if loop.index % 2 else 'subscription even' }}"><img src="../static/spotify.png" alt="Spotify Logo"> &nbsp; {{s.name}} &nbsp;&nbsp;&nbsp;&nbsp; Status: {% if s.is_active %} Active {% else %} Inactive {% endif %} <a class="{{ 'hide' if s.is_active else 'show btn' }}" href="{{ url_for('enable_subscription', id=s.id) }}">Activate</a><a class="{{ 'show btn' if s.is_active else 'hide' }}" href="{{ url_for('disable_subscription', id=s.id) }}">Deactivate</a>
+    <li><div class="{{ 'subscription odd' if loop.index % 2 else 'subscription even' }}"><img src="../static/spotify.png" alt="Spotify Logo"> &nbsp; {{s.name}} &nbsp;&nbsp;&nbsp;&nbsp; Status: {% if s.is_active %} Active {% else %} Inactive {% endif %} <a class="{{ 'hide' if s.is_active else 'show btn' }}" href="{{ url_for('enable_subscription', id=s.subscription_id) }}">Activate</a><a class="{{ 'show btn' if s.is_active else 'hide' }}" href="{{ url_for('disable_subscription', id=s.id) }}">Deactivate</a>
     <br>
     Card ending in: {{s.last_four_credit_card}}  &nbsp;&nbsp;&nbsp;&nbsp; Next Payment Date: {{s.next_charge_dt}} &nbsp;&nbsp;&nbsp;&nbsp; Next Payment Charge: ${{s.next_charge_amt}}
     </div></li>
