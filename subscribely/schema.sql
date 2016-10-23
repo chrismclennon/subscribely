@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS services (
 );
 DROP TABLE IF EXISTS user_subscriptions;
 CREATE TABLE IF NOT EXISTS user_subscriptions (
+  subscription_id INT PRIMARY KEY,
   user_id INT REFERENCES users(user_id),
   service_id INT REFERENCES services(service_id),
   username TEXT,
