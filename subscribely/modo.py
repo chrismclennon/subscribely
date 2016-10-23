@@ -3,8 +3,7 @@
 import json
 import sqlite3
 
-#import subscribely.modo_api as modo_api
-import modo_api
+import subscribely.modo_api as modo_api
 
 def register_user(connection, user_id, phone_number, first_name=None, last_name=None, email=None):
     cursor = connection.cursor()
