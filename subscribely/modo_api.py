@@ -64,11 +64,12 @@ def add_credit_card(modo_account_id, name_on_card, credit_card_number,
         headers=make_header(), data=payload)
     return response
 
-def mint_coin(account_id, amount, vault_id):
+def mint_coin_cc(account_id, amount, vault_id):
+    """Mint a coin with OPEN_CARD->OPEN_CARD."""
     payload = json.dumps({
         'account_id': account_id,
         'amount': amount,
-        'description': 'Subscribely minting coin.',
+        'description': 'Subscribely minting coin OPEN_CARD->OPEN_CARD.',
         'inputs': [{
             'instrument_id': vault_id,
             'max_amount': amount
@@ -76,6 +77,38 @@ def mint_coin(account_id, amount, vault_id):
         'outputs': [{
             'instrument_id': vault_id,
             'instrument_type': 'OPEN_CARD',
+            'max_amount': amount
+        }],
+    })
+    response = requests.post('https://hack.modoapi.com/1.0.0-dev/coin/mint',
+        headers=make_header(), data=payload)
+    return response
+
+def mint_coin_gc(account_id, amount, vault_id, service_name):
+    """Mint a coin with OPEN_CARD->GENERATED_GIFT_CARD."""
+    # Get merchant_id
+    response = requests.post('https://hack.modoapi.com/1.0.0-dev/merchant/list',
+        headers=make_header())
+    merchant_response = json.loads(response.text)['response_data']
+    for merchant in merchant_response:
+        if merchant['merchant_name'] == service_name:
+            merchant_id = merchant['merchant_id']
+            break
+    else:
+        raise Exception('Merchant not found.')
+
+    # Mint
+    payload = json.dumps({
+        'account_id': account_id,
+        'amount': amount,
+        'description': 'Subscribely minting coin OPEN_CARD->GENERATED_GIFT_CARD.',
+        'inputs': [{
+            'instrument_id': vault_id,
+            'max_amount': amount
+        }],
+        'outputs': [{
+            'instrument_type': 'GENERATED_GIFT_CARD',
+            'qualifier': merchant_id,
             'max_amount': amount
         }],
     })
