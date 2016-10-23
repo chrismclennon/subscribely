@@ -39,5 +39,5 @@ CREATE TABLE IF NOT EXISTS transaction_history (
 
 INSERT INTO users VALUES (1, 'kperry@yomail.com', 'tswifty');
 INSERT INTO services VALUES (1, 'Spotify');
-INSERT INTO user_modo VALUES (1, 'fake_account_id', 0);
+INSERT INTO user_modo VALUES (1, NULL, NULL, '5432');
 INSERT INTO user_subscriptions VALUES (1, 1, 1, 'ktperryfan007', 'tswifty', 0, '2016-10-22', '2016-10-22', 9.99);

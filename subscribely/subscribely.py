@@ -92,11 +92,11 @@ def disable_subscription(id):
     cursor = db.execute('select * from user_subscriptions where subscription_id = ?', (id,))
     subscription = cursor.fetchone()
 
-    if (!subscription):
+    if not subscription:
         return
 
     cursor.execute('UPDATE user_subscription SET is_active=? WHERE subscription_id=?', (False, id))
-            connection.commit()
+    connection.commit()
 
     flash('Subscription successfully disabled.')
     return redirect(url_for('dashboard'))
@@ -105,10 +105,10 @@ def disable_subscription(id):
 @app.route('/payment_methods', methods=['GET', 'POST'])
 def payment_methods():
     error = None
-        if request.method == 'POST':
-            print(request.form['payinfo'])
-        elif request.method == 'GET':
-            print('Current available payment goes here.')
+    if request.method == 'POST':
+        print(request.form['payinfo'])
+    elif request.method == 'GET':
+        print('Current available payment goes here.')
     return render_template('login.html', error=error)
 
 @app.route('/login', methods=['GET', 'POST'])
