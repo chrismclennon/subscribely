@@ -4,7 +4,7 @@ a:link          { text-decoration: none; }
 a:visited       { text-decoration: none; }
 a:hover         { background-color: #7f92a5;}
 a:active        { text-decoration: underline; }
-h1              { font-family: 'Fredericka the Great', cursive; margin: 0; color: #C4BFAD; font-size: 72px; text-shadow: 2px 2px 4px #000000; }
+h1              { font-family: 'Lobster', cursive; margin: 0; color: #C4BFAD; font-size: 72px; text-shadow: 2px 2px 4px #000000; }
 h2              { font-family: 'Cinzel'; font-size: 1.5em; serif; margin: 0; color: #93918e;}
 h3              { font-family: sans-serif; font-size: 18px; margin: 0;}
 h1              { border-bottom: 2px solid #eee; }
@@ -36,4 +36,4 @@ hr              { border-color: lightgray; }
 .hide           { display: none; }
 
 .center         { margin: auto; width: 90%; padding: 10px; }
-.btn            { width: 180px; float: right;} 
+.btn            { width: 180px; float: right;}
