@@ -15,9 +15,11 @@
         <a href="{{ url_for('update_credentials') }}">Change credentials</a>
         {% elif s.next_charge_dt and s.next_charge_dt > current_date %}
         Membership expires on {{ s.next_charge_dt }}.<br>
+        <a class="btn btn-success" href="{{ url_for('enable_gift_card', id=s.subscription_id) }}">Subscribe with Gift Card</a>
         <a class="btn btn-success" href="{{ url_for('enable_subscription', id=s.subscription_id) }}">Subscribe for ${{s.cost}}</a>
         <a href="{{ url_for('update_credentials') }}">Change credentials</a>
         {% else %}
+        <a class="btn btn-success" href="{{ url_for('enable_gift_card', id=s.subscription_id) }}">Subscribe with Gift Card</a>
         <a class="btn btn-success" href="{{ url_for('enable_subscription', id=s.subscription_id) }}">Subscribe for ${{s.cost}}</a>
         <a href="{{ url_for('update_credentials') }}">Set credentials</a>
         {% endif %}
