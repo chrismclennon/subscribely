@@ -38,7 +38,7 @@ def gift_card_status():
         driver.quit()
 
 def enter_gift_card_code(code):
-    try:
+    #try:
         driver = webdriver.Chrome()
         driver.implicitly_wait(5)
 
@@ -54,17 +54,18 @@ def enter_gift_card_code(code):
 
         driver.get("https://www.spotify.com/us/redeem/prepaid/")
 
+        print("code to redeem: " + code)
         driver.find_element_by_id("redeem_code_token").send_keys(code)
         enter_code_button = driver.find_element_by_id("redeem_code_submit")
         enter_code_button.click()
 
         invalid_notifications = driver.find_elements_by_xpath("//p[contains(text(), 'Unfortunately this Premium code does not seem to be valid')]")
 
-        if (len(invalid_notifications) > 0):
-            return False
+        #if (len(invalid_notifications) > 0):
+            #return False
         return True
-    finally:
-        driver.quit()
+    #finally:
+        #driver.quit()
 
 def subscribe_with_credit_card_info(ccn, month, year, cvv, zip):
     try:
