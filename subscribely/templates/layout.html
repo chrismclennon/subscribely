@@ -8,7 +8,7 @@
 <h1>Subscribely</h1>
   <div class="metanav">
   {% if not session.logged_in %}
-    <a href="{{ url_for('login') }}">Log In</a> | <a href="#">Sign Up</a>
+    <a href="{{ url_for('login') }}"><h2> Log In </a> | <a href="#"> Sign Up </h2></a>
   {% else %}
     <a href="{{ url_for('dashboard') }}">Dashboard</a> | <a href="{{ url_for('payment_methods')}}">Payment Preferences</a> | <a href="{{ url_for('logout') }}">Log Out</a>
   {% endif %}
