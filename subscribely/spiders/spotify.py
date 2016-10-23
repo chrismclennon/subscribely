@@ -40,6 +40,7 @@ def gift_card_status():
         driver.quit()
 
 def enter_gift_card_code(code):
+    try:
         driver = webdriver.Chrome()
         driver.implicitly_wait(5)
 
