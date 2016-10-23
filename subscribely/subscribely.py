@@ -53,9 +53,13 @@ def close_db(error):
 @app.route('/')
 def dashboard():
     db = get_db()
-    cur = db.execute('select * from user_subscriptions inner join services on user_subscriptions.service_id = services.service_id')
+    cur = db.execute('select * from user_subscriptions '
+        'inner join services on user_subscriptions.service_id = services.service_id '
+        'inner join user_modo on user_subscriptions.user_id = user_modo.user_id')
     subscriptions = cur.fetchall()
+    print(subscriptions)
     return render_template('dashboard.html', subscriptions=subscriptions)
+
 
 @app.route('/subscriptions/<id>/enable', methods=['POST'])
 def enable_subscription(id):
@@ -100,10 +104,12 @@ def disable_subscription(id):
 
 @app.route('/payment_methods', methods=['GET', 'POST'])
 def payment_methods():
-    db = get_db()
-    cur = db.execute('select * from user_modo')
-    payment_methods = cur.fetchall()
-    return render_template('account-info.html', payment_methods=payment_methods)
+    error = None
+        if request.method == 'POST':
+            print(request.form['payinfo'])
+        elif request.method == 'GET':
+            print('Current available payment goes here.')
+    return render_template('login.html', error=error)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

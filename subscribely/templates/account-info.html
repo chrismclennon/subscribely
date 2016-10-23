@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
-  <h2>Payment Information</h2>
+  <h2>Payment Preferences</h2>
   {% if error %}<p class="error"><strong>Error:</strong> {{ error }}{% endif %}
   <p>Make changes to your payment profile</p>
   <form action="{{ url_for('payment_methods') }}" method="post">
@@ -23,8 +23,14 @@
   <option value="oct">October</option>
   <option value="nov">November</option>
   <option value="dec">December</option>
-</select> <input type="number" name="year" min="2016" max="2022">
-      <dd><input type="submit" value="Add This Payment Method">
+</select> <input type="number" name="year" min="2016" max="2026">
+      <dt>CVV/Security Code:
+      <dd><input type="number" name="nob">
+      <dt>Zip Code:
+      <dd><input type="number" name="zipcode">
+      <br>
+      <br>
+      <dd><input type="submit" name="payinfo" value="Add This Payment Method">
     </dl>
   </form>
 {% endblock %}
