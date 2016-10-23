@@ -75,7 +75,7 @@ def mint_coin_cc(account_id, amount, vault_id):
             'max_amount': amount
         }],
         'outputs': [{
-            'instrument_id': vault_id,
+            'instrument_id': vault_id, # TODO: Remove?
             'instrument_type': 'OPEN_CARD',
             'max_amount': amount
         }],
