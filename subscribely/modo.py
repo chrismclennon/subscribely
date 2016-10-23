@@ -1,8 +1,9 @@
 """Subscribely's Modo actions with database integration."""
 
 import json
-import modo_api
 import sqlite3
+
+import subscribely.modo_api
 
 connection = sqlite3.connect('subscribely.db')
 cursor = connection.cursor()
