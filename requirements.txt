@@ -3,3 +3,5 @@ requests
 neovim
 retrying
 virtualenv
+selenium
+pyjwt
