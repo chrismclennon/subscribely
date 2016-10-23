@@ -5,15 +5,8 @@ import sqlite3
 
 import subscribely.modo_api as modo_api
 
-#connection = sqlite3.connect('subscribely.db')
-#cursor = connection.cursor()
-
-#def _set_connection(conn):
-#    global connection, cursor
-#    connection = conn
-#    cursor = connection.cursor()
-
-def register_user(user_id, phone_number, first_name=None, last_name=None, email=None):
+def register_user(connection, user_id, phone_number, first_name=None, last_name=None, email=None):
+    cursor = connection.cursor()
     response = modo_api.register_user(phone_number, first_name, last_name, email)
 
     print(response.text)
@@ -27,7 +20,7 @@ def register_user(user_id, phone_number, first_name=None, last_name=None, email=
 def add_credit_card(connection, user_id, name_on_card, credit_card_number, expiration_month,
     expiration_year, security_code, billing_address, zip_code):
 
-    cursor=connection.cursor()
+    cursor = connection.cursor()
     modo_account_id = cursor.execute('SELECT modo_account_id FROM user_modo WHERE user_id = ?;', (user_id,)).fetchone()[0]
     response = modo_api.add_credit_card(modo_account_id, name_on_card,
         credit_card_number, expiration_month, expiration_year, security_code,
@@ -41,8 +34,9 @@ def add_credit_card(connection, user_id, name_on_card, credit_card_number, expir
         cursor.execute('UPDATE user_modo SET modo_vault_id=? WHERE user_id=?', (vault_id, user_id))
         connection.commit()
 
-def process_payment_virtual_cc(user_id, service_id):
+def process_payment_virtual_cc(connection, user_id, service_id):
     """Charges payment on user for service. Returns virtual credit card detail."""
+    cursor = connection.cursor()
     modo_account_id = cursor.execute('SELECT modo_account_id FROM user_modo WHERE user_id = ?;', (user_id,)).fetchone()[0]
     amount = cursor.execute('SELECT next_charge_amt FROM user_subscriptions WHERE user_id = ? AND service_id = ?;', (user_id, service_id)).fetchone()[0]
     vault_id = cursor.execute('SELECT modo_vault_id FROM user_modo WHERE user_id = ?;', (user_id,)).fetchone()[0] 
