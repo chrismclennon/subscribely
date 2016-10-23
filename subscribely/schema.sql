@@ -45,6 +45,6 @@ INSERT INTO services VALUES (3, 'LastPass', '12.00');
 INSERT INTO services VALUES (4, 'BirchBox', '10.00');
 INSERT INTO user_modo VALUES (1, '71033440-6aa3-46f3-accb-30a6387bdd67', '176a2c58-ee13-4d97-b3cf-45b6d3bf1a76', '5432');
 INSERT INTO user_subscriptions VALUES (1, 1, 1, 'ktperryfan007', 'tswifty', 0, '2016-10-22', NULL, 9.99);
-INSERT INTO user_subscriptions VALUES (2, 1, 2, NULL, NULL, 0, NULL, NULL, NULL);
+INSERT INTO user_subscriptions VALUES (2, 1, 2, NULL, NULL, 1, NULL, '2016-11-01', NULL);
 INSERT INTO user_subscriptions VALUES (3, 1, 3, NULL, NULL, 0, NULL, NULL, NULL);
 INSERT INTO user_subscriptions VALUES (4, 1, 4, NULL, NULL, 0, NULL, NULL, NULL);
