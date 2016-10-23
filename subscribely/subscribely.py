@@ -3,7 +3,7 @@ from sqlite3 import dbapi2 as sqlite3
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
 from selenium import webdriver
 
-import subscribely.modo
+import subscribely.modo as modo
 
 app = Flask(__name__)
 
@@ -27,6 +27,7 @@ def initdb_command():
 def init_db():
     """Initializes the database."""
     db = get_db()
+#    modo._set_connection(db)
     with app.open_resource('schema.sql', mode='r') as f:
         db.cursor().executescript(f.read())
     db.commit()
@@ -108,10 +109,18 @@ def disable_subscription(id):
 def payment_methods():
     error = None
     if request.method == 'POST':
-        print('You made a POST request')
-        print(request.form['payinfo'])
-    elif request.method == 'GET':
-        print('Current available payment goes here.')
+        modo.add_credit_card(
+            connection=get_db(),
+            user_id=1,
+            name_on_card=request.form['name_on_card'],
+            credit_card_number=request.form['credit_card_number'],
+            expiration_month=int(request.form['expiration_month']),
+            expiration_year=int(request.form['expiration_year']),
+            security_code=int(request.form['security_code']),
+            billing_address=request.form['billing_address'],
+            zip_code=request.form['zip_code'],
+        )
+        print(request.form['credit_card_number'])
     return render_template('account-info.html', error=error)
 
 @app.route('/login', methods=['GET', 'POST'])

@@ -3,13 +3,19 @@
 import json
 import sqlite3
 
-import subscribely.modo_api
+import subscribely.modo_api as modo_api
 
-connection = sqlite3.connect('subscribely.db')
-cursor = connection.cursor()
+#connection = sqlite3.connect('subscribely.db')
+#cursor = connection.cursor()
+
+#def _set_connection(conn):
+#    global connection, cursor
+#    connection = conn
+#    cursor = connection.cursor()
 
 def register_user(user_id, phone_number, first_name=None, last_name=None, email=None):
     response = modo_api.register_user(phone_number, first_name, last_name, email)
+
 #    print(response.text)
     if response.status_code != 200:
         raise Exception('Response status code <{}>'.format(response.status_code))
@@ -18,13 +24,15 @@ def register_user(user_id, phone_number, first_name=None, last_name=None, email=
         cursor.execute('INSERT INTO user_modo VALUES (?, ?, ?, ?)', (user_id, response_data['account_id'], None, None))
         connection.commit()
 
-def add_credit_card(user_id, name_on_card, credit_card_number, expiration_month,
+def add_credit_card(connection, user_id, name_on_card, credit_card_number, expiration_month,
     expiration_year, security_code, billing_address, zip_code):
+
+    cursor=connection.cursor()
     modo_account_id = cursor.execute('SELECT modo_account_id FROM user_modo WHERE user_id = ?;', (user_id,)).fetchone()[0]
     response = modo_api.add_credit_card(modo_account_id, name_on_card,
         credit_card_number, expiration_month, expiration_year, security_code,
         billing_address, zip_code)
-#    print(response.text)
+    print(response.text)
     if response.status_code != 200:
         raise Exception('Response status code <{}>'.format(response.status_code))
     else:
