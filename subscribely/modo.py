@@ -16,7 +16,7 @@ import subscribely.modo_api as modo_api
 def register_user(user_id, phone_number, first_name=None, last_name=None, email=None):
     response = modo_api.register_user(phone_number, first_name, last_name, email)
 
-#    print(response.text)
+    print(response.text)
     if response.status_code != 200:
         raise Exception('Response status code <{}>'.format(response.status_code))
     else:
@@ -47,7 +47,7 @@ def process_payment_virtual_cc(user_id, service_id):
     amount = cursor.execute('SELECT next_charge_amt FROM user_subscriptions WHERE user_id = ? AND service_id = ?;', (user_id, service_id)).fetchone()[0]
     vault_id = cursor.execute('SELECT modo_vault_id FROM user_modo WHERE user_id = ?;', (user_id,)).fetchone()[0] 
 
-#    print(mint_response.text)
+    print(mint_response.text)
     mint_response = modo_api.mint_coin(modo_account_id, amount, vault_id)
     if mint_response.status_code != 200:
         raise Exception('Response status code <{}>'.format(response.status_code))
@@ -56,7 +56,7 @@ def process_payment_virtual_cc(user_id, service_id):
     operate_response = modo_api.operate_coin(coin_id)
     if operate_response.status_code != 200:
         raise Exception('Response status code <{}>'.format(response.status_code))
-#    print(operate_response.text)
+    print(operate_response.text)
     instruments = json.loads(operate_response.text)['response_data']['instruments']
     for instrument in instruments.keys():
         if instruments[instrument].get('new_vault_item'):
@@ -68,9 +68,4 @@ def process_payment_virtual_cc(user_id, service_id):
             }
     else:
         raise Exception('No new vault item was found.')
-
-
-if __name__ == '__main__':
-    register_user(1, '5123349734')
-    add_credit_card(1, 'Katy Perry', '5415240007992183', 12, 2020, 123, '123 Lane', '78703')
 
