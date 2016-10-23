@@ -1,3 +1,4 @@
+import datetime
 import os
 from sqlite3 import dbapi2 as sqlite3
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
@@ -57,13 +58,14 @@ def close_db(error):
 @app.route('/')
 def dashboard():
     db = get_db()
-    cur = db.execute('SELECT * FROM user_subscriptions INNER JOIN services ON user_subscriptions.service_id = services.service_id INNER JOIN user_modo ON user_subscriptions.user_id = user_modo.user_id')
-#    cur = db.execute('select * from user_subscriptions '
-#        'inner join services on user_subscriptions.service_id = services.service_id '
-#        'inner join user_modo on user_subscriptions.user_id = user_modo.user_id')
+    cur = db.execute('SELECT * FROM user_subscriptions '
+        'INNER JOIN services ON user_subscriptions.service_id = services.service_id '
+        'INNER JOIN user_modo ON user_subscriptions.user_id = user_modo.user_id')
     subscriptions = cur.fetchall()
+    current_datetime = datetime.datetime.now()
+    current_time = '-'.join(map(str, [current_datetime.year, current_datetime.month, current_datetime.day]))
     print(subscriptions)
-    return render_template('dashboard.html', subscriptions=subscriptions)
+    return render_template('dashboard.html', subscriptions=subscriptions, current_date=current_time)
 
 
 @app.route('/subscriptions/<id>/enable', methods=['GET'])

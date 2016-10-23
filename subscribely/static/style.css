@@ -1,11 +1,11 @@
-body            { font-family: sans-serif; background-image: url('./swooshey.jpg'); background-repeat: repeat; }
+body            { font-family: sans-serif; background-image: url('./seigaiha.png'); background-repeat: repeat; }
 a               { color: #494847; }
 a:link          { text-decoration: none; }
 a:visited       { text-decoration: none; }
 a:hover         { background-color: #7f92a5;}
-a:active        { text-decoration: underline;}
-h1              { font-family: 'Cinzel Decorative', cursive; margin: 0; color: #93918e; font-size: 72px; text-shadow: 2px 2px 4px #000000; }
-h2              { font-family: 'Cinzel', serif; margin: 0; color: #93918e;}
+a:active        { text-decoration: underline; }
+h1              { font-family: 'Cinzel Decorative', cursive; margin: 0; color: #C4BFAD; font-size: 72px; text-shadow: 2px 2px 4px #000000; }
+h2              { font-family: 'Cinzel'; font-size: 1.5em; serif; margin: 0; color: #93918e;}
 h1              { border-bottom: 2px solid #eee; }
 .logo-img img   { width: 32px; height: 32px; }
 
@@ -23,9 +23,9 @@ h1              { border-bottom: 2px solid #eee; }
                   border: 1px solid #AACBE2; }
 .error          { background: #F0D6D6; padding: 0.5em; }
 
-.subscription   { padding: 25px; line-height: 25px; border: 2px solid #eee; hor}
-.odd            { background-color: white; }
-.even           { background-color: whitesmoke; }
+.subscription   { padding: 25px; line-height: 25px; border: 2px solid #eee; }
+.inactive       { border-style: dashed; border-color: #D6DBDF; background-color: #F4F6F6; }
+.active         { border-style: solid; border-color: #2ECC71; background-color: #E9F7EF; }
 #default        { font-size: 50px; }
 #footer          { text-align: center; }
 
@@ -33,3 +33,4 @@ h1              { border-bottom: 2px solid #eee; }
 .hide           { display: none; }
 
 .center         { margin: auto; width: 90%; padding: 10px; }
+.btn            { width: 180px; }

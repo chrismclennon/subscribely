@@ -2,27 +2,28 @@
 {% block body %}
   {% if session.logged_in %}
   {% endif %}
-    <h2>All Subscriptions</h2>
+    <!-- <h2>All Subscriptions</h2> -->
   <ul class="entries">
   {% for s in subscriptions %}
-    <li><div class="{{ 'subscription even' if loop.index is divisibleby 2 else 'subscription odd' }}"><img src="../static/{{s.name}}.png" alt="{{s.name}} Logo"> &nbsp; {{s.name}} &nbsp;&nbsp;&nbsp;&nbsp; Status: {% if s.is_active %} Active {% else %} Inactive {% endif %} 
-
-    {% if s.is_active %}
-    <a class="btn btn-danger" href="{{ url_for('disable_subscription', id=s.subscription_id) }}">Deactivate</a>
-    <br>
-
-    Card: ****-****-****-{{s.last_four_credit_card}}  &nbsp;&nbsp;&nbsp;&nbsp; Next Payment Date: {{s.next_charge_dt}} &nbsp;&nbsp;&nbsp;&nbsp; Next Payment Charge: ${{s.next_charge_amt}}<br>
-    <a href="{{ url_for('update_credentials') }}">Change credentials</a>
-    {% else %}
-    <a class="btn btn-success" href="{{ url_for('enable_subscription', id=s.subscription_id) }}">Activate</a>
-    <a href="{{ url_for('update_credentials') }}">Set credentials</a>
-    {% endif %}
-    </div></li>
-  {% else %}
-    <li><div class="global-nav"> <a href="#wut">What We Do</a> | <a href="#about">About Our Team</a> | <a href="#contact">Contact Us</a>
-    </div>
-    <div id="default">All your subscriptions in one place. Simple.</div></li>
+    <li>
+      <div class="{% if s.is_active %}subscription active{% else %}subscription inactive{% endif %}">
+        <img src="../static/{{s.name}}.png" alt="{{s.name}} Logo"> &nbsp;
+        <b>{{s.name}}</b> &nbsp;&nbsp;&nbsp;&nbsp;
+        <a class="{% if s.is_active %}hide{% else %}show btn btn-success{% endif %}" href="{{ url_for('enable_subscription', id=s.subscription_id) }}">Subscribe for ${{s.cost}}</a>
+        <a class="{% if s.is_active %}show btn btn-danger{% else %}hide{% endif %}" href="{{ url_for('disable_subscription', id=s.subscription_id) }}">Deactivate</a>
+        <br>
+        {% if s.is_active %}
+        Card: ****-****-****-{{s.last_four_credit_card}} &nbsp;&nbsp;&nbsp;&nbsp; Next Payment Date: {{s.next_charge_dt}} &nbsp;&nbsp;&nbsp;&nbsp; Next Payment Charge: ${{s.cost}}<br>
+        <a href="{{ url_for('update_credentials') }}">Change credentials</a>
+        {% elif s.next_charge_dt and s.next_charge_dt > current_date %}
+        Membership expires on {{ s.next_charge_dt }}.<br>
+        <a href="{{ url_for('update_credentials') }}">Change credentials</a>
+        {% else %}
+        <a href="{{ url_for('update_credentials') }}">Set credentials</a>
+        {% endif %}
+      </div></li>
   {% endfor %}
   </ul>
-  <div id="footer">Made with &#9829; at Money2020 Hackathon 2016</div>
+  <div id="footer">Made with &#9829; at Money20/20 Hackathon 2016<br>
+  Powered by <a href="https://modopayments.com/">Modo Payments</a></div>
 {% endblock %}
