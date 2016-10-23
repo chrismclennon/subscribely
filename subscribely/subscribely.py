@@ -53,12 +53,12 @@ def close_db(error):
 @app.route('/')
 def dashboard():
     db = get_db()
-    cur = db.execute('select * from user_subscriptions')
+    cur = db.execute('select * from user_subscriptions inner join services on user_subscriptions.service_id = services.service_id')
     subscriptions = cur.fetchall()
     return render_template('dashboard.html', subscriptions=subscriptions)
 
 @app.route('/subscriptions/<id>/enable', methods=['POST'])
-def enable_subscription():
+def enable_subscription(id):
     db = get_db()
     cursor = db.execute('select * from user_subscriptions where subscription_id = ?', (id,))
     subscription = cursor.fetchone()
@@ -96,6 +96,14 @@ def disable_subscription(id):
 
     flash('Subscription successfully disabled.')
     return redirect(url_for('dashboard'))
+
+
+@app.route('/payment_methods', methods=['GET', 'POST'])
+def payment_methods():
+    db = get_db()
+    cur = db.execute('select * from user_modo')
+    payment_methods = cur.fetchall()
+    return render_template('account-info.html', payment_methods=payment_methods)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

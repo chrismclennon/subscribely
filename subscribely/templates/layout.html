@@ -4,13 +4,13 @@
 <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative" rel="stylesheet">
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <div class="container">
-<div id="header"><h1>Subscribely</h1></div>
 <div class="page">
+<h1>Subscribely</h1>
   <div class="metanav">
   {% if not session.logged_in %}
     <a href="{{ url_for('login') }}">Log In</a> | <a href="#">Sign Up</a>
   {% else %}
-    <a href="{{ url_for('logout') }}">Log Out</a>
+    <a href="{{ url_for('dashboard') }}">Dashboard</a> | <a href="{{ url_for('payment_methods')}}">Payment Preferences</a> | <a href="{{ url_for('logout') }}">Log Out</a>
   {% endif %}
   </div>
 

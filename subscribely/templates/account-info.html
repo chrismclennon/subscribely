@@ -1,14 +1,30 @@
 {% extends "layout.html" %}
 {% block body %}
-  <h2>Account Information</h2>
+  <h2>Payment Information</h2>
   {% if error %}<p class="error"><strong>Error:</strong> {{ error }}{% endif %}
-  <form action="{{ url_for('login') }}" method="post">
+  <p>Make changes to your payment profile</p>
+  <form action="{{ url_for('payment_methods') }}" method="post">
     <dl>
-      <dt>Email:
-      <dd><input type="text" name="username">
-      <dt>Password:
-      <dd><input type="password" name="password">
-      <dd><input type="submit" value="Login">
+      <dt>Credit Card Number:
+      <dd><input type="text" name="cc-number">
+      <dt>Name on Card:
+      <dd><input type="text" name="name-card">
+      <dt>Expiration Date:
+      <dd><select name="month">
+  <option value="jan">January</option>
+  <option value="feb">February</option>
+  <option value="mar">March</option>
+  <option value="apr">April</option>
+  <option value="may">May</option>
+  <option value="june">June</option>
+  <option value="july">July</option>
+  <option value="aug">August</option>
+  <option value="sep">September</option>
+  <option value="oct">October</option>
+  <option value="nov">November</option>
+  <option value="dec">December</option>
+</select> <input type="number" name="year" min="2016" max="2022">
+      <dd><input type="submit" value="Add This Payment Method">
     </dl>
   </form>
 {% endblock %}
