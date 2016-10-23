@@ -7,7 +7,7 @@
   {% for s in subscriptions %}
     <li>
       <div class="{% if s.is_active %}subscription active{% else %}subscription inactive{% endif %}">
-        <h3><img src="../static/{{s.name}}.png" alt="{{s.name}} Logo"> {{s.name}}</h3> 
+        <h3><img src="../static/{{s.name}}.png" class="logo-img" alt="{{s.name}} Logo"> {{s.name}}</h3> 
         <hr>
         {% if s.is_active %}
         <a class="btn btn-danger" href="{{ url_for('disable_subscription', id=s.subscription_id) }}">Deactivate</a>
@@ -15,6 +15,7 @@
         <a href="{{ url_for('update_credentials') }}">Change credentials</a>
         {% elif s.next_charge_dt and s.next_charge_dt > current_date %}
         Membership expires on {{ s.next_charge_dt }}.<br>
+        <a class="btn btn-success" href="{{ url_for('enable_subscription', id=s.subscription_id) }}">Subscribe for ${{s.cost}}</a>
         <a href="{{ url_for('update_credentials') }}">Change credentials</a>
         {% else %}
         <a class="btn btn-success" href="{{ url_for('enable_subscription', id=s.subscription_id) }}">Subscribe for ${{s.cost}}</a>
