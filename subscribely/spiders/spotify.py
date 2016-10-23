@@ -33,8 +33,6 @@ def gift_card_status():
         else:
             print("no active gift card found")
 
-        driver.quit()
-
         return gift_card_status
     finally:
         driver.quit()
@@ -61,7 +59,6 @@ def enter_gift_card_code(code):
         enter_code_button.click()
 
         invalid_notifications = driver.find_elements_by_xpath("//p[contains(text(), 'Unfortunately this Premium code does not seem to be valid')]")
-        driver.quit()
 
         if (len(invalid_notifications) > 0):
             return False
