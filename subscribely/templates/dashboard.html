@@ -7,7 +7,7 @@
   {% for s in subscriptions %}
     <li>
       <div class="{% if s.is_active %}subscription active{% else %}subscription inactive{% endif %}">
-        <img src="../static/{{s.name}}.png" alt="{{s.name}} Logo"> &nbsp;
+        <img src="../static/{{s.name}}.png" alt="{{s.name}} Logo" width="32px" height="32px"> &nbsp;
         <b>{{s.name}}</b> &nbsp;&nbsp;&nbsp;&nbsp;
         <a class="{% if s.is_active %}hide{% else %}show btn btn-success{% endif %}" href="{{ url_for('enable_subscription', id=s.subscription_id) }}">Subscribe for ${{s.cost}}</a>
         <a class="{% if s.is_active %}show btn btn-danger{% else %}hide{% endif %}" href="{{ url_for('disable_subscription', id=s.subscription_id) }}">Deactivate</a>
