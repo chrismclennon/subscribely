@@ -5,22 +5,26 @@
     <h2>All Subscriptions</h2>
   <ul class="entries">
   {% for s in subscriptions %}
-    <li><div class="{{ 'subscription odd' if loop.index % 2 else 'subscription even' }}"><img src="../static/spotify.png" alt="Spotify Logo"> &nbsp; <b>{{s.name}}</b> &nbsp;&nbsp;&nbsp;&nbsp; Status: {% if s.is_active %} Active {% else %} Inactive {% endif %} <a class="{{ 'hide' if s.is_active else 'show btn' }}" href="{{ url_for('enable_subscription', id=s.id) }}">Activate</a><a class="{{ 'show btn' if s.is_active else 'hide' }}" href="{{ url_for('disable_subscription', id=s.id) }}">Deactivate</a>
+    <li><div class="{{ 'subscription odd' if loop.index % 2 else 'subscription even' }}"><img src="../static/{{s.name}}.png" alt="{{s.name}} Logo"> &nbsp; <b>{{s.name}}</b> &nbsp;&nbsp;&nbsp;&nbsp; Status: {% if s.is_active %} Active {% else %} Inactive {% endif %} <a class="{{ 'hide' if s.is_active else 'show btn' }}" href="{{ url_for('enable_subscription', id=s.id) }}">Activate</a><a class="{{ 'show btn' if s.is_active else 'hide' }}" href="{{ url_for('disable_subscription', id=s.id) }}">Deactivate</a>
     <br>
     {% if s.is_active %}
     Card ending in: {{s.last_four_credit_card}}  &nbsp;&nbsp;&nbsp;&nbsp; Next Payment Date: {{s.next_charge_dt}} &nbsp;&nbsp;&nbsp;&nbsp; Next Payment Charge: ${{s.next_charge_amt}}<br>
     <a href="{{ url_for('update_credentials') }}">Change credentials</a>
+    {% else %}
+    <a href="{{ url_for('update_credentials') }}">Set credentials</a>
     {% endif %}
     </div></li>
-    <li><div class="subscription even"><img src="../static/netflix.png" alt="Netflix Logo">&nbsp; Netflix &nbsp;&nbsp;&nbsp;&nbsp; Status: Inactive <a class="btn">Activate</a>
+    <!-- <li><div class="subscription even"><img src="../static/netflix.png" alt="Netflix Logo">&nbsp; Netflix &nbsp;&nbsp;&nbsp;&nbsp; Status: Inactive <a class="btn">Activate</a>
     <br>
     {% if s.is_active %}
     Card ending in: {{s.last_four_credit_card}}  &nbsp;&nbsp;&nbsp;&nbsp; Next Payment Date: {{s.next_charge_dt}} &nbsp;&nbsp;&nbsp;&nbsp; Next Payment Charge: $7.99
     <a href="{{ url_for('update_credentials') }}">Change credentials</a>
+    {% else %}
+    <a href="{{ url_for('update_credentials') }}">Set credentials</a>
     {% endif %}
-    </div></li>
+    </div></li> -->
   {% else %}
-    <li>    <div class="global-nav"> <a href="#wut">What We Do</a> | <a href="#about">About Our Team</a> | <a href="#contact">Contact Us</a>
+    <li><div class="global-nav"> <a href="#wut">What We Do</a> | <a href="#about">About Our Team</a> | <a href="#contact">Contact Us</a>
     </div>
     <div id="default">All your subscriptions in one place. Simple.</div></li>
   {% endfor %}

@@ -57,9 +57,10 @@ def close_db(error):
 @app.route('/')
 def dashboard():
     db = get_db()
-    cur = db.execute('select * from user_subscriptions '
-        'inner join services on user_subscriptions.service_id = services.service_id '
-        'inner join user_modo on user_subscriptions.user_id = user_modo.user_id')
+    cur = db.execute('SELECT * FROM user_subscriptions INNER JOIN services ON user_subscriptions.service_id = services.service_id INNER JOIN user_modo ON user_subscriptions.user_id = user_modo.user_id')
+#    cur = db.execute('select * from user_subscriptions '
+#        'inner join services on user_subscriptions.service_id = services.service_id '
+#        'inner join user_modo on user_subscriptions.user_id = user_modo.user_id')
     subscriptions = cur.fetchall()
     print(subscriptions)
     return render_template('dashboard.html', subscriptions=subscriptions)
