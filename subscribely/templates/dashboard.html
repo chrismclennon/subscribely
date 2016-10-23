@@ -7,7 +7,7 @@
   {% for s in subscriptions %}
     <li>
       <div class="{% if s.is_active %}subscription active{% else %}subscription inactive{% endif %}">
-        <h3><img src="../static/{{s.name}}.png" class="logo-img" alt="{{s.name}} Logo"> {{s.name}}</h3> 
+        <h3><img class="logo-img" width="32px" height="32px" src="../static/{{s.name}}.png" alt="{{s.name}} Logo"> {{s.name}}</h3> 
         <hr>
         {% if s.is_active %}
         <a class="btn btn-danger" href="{{ url_for('disable_subscription', id=s.subscription_id) }}">Deactivate</a>
