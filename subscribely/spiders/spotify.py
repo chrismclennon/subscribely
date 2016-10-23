@@ -38,7 +38,7 @@ def gift_card_status():
         driver.quit()
 
 def enter_gift_card_code(code):
-    #try:
+    try:
         driver = webdriver.Chrome()
         driver.implicitly_wait(5)
 
@@ -64,8 +64,8 @@ def enter_gift_card_code(code):
         #if (len(invalid_notifications) > 0):
             #return False
         return True
-    #finally:
-        #driver.quit()
+    finally:
+        driver.quit()
 
 def subscribe_with_credit_card_info(ccn, month, year, cvv, zip):
     try:
