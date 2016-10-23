@@ -1,20 +1,23 @@
-body            { font-family: sans-serif; background-image: url('./seigaiha.png'); background-repeat: repeat; }
+body            { font-family: sans-serif; background-image: url('./swooshey.jpg'); background-repeat: repeat; }
 a               { color: #494847; }
 a:link          { text-decoration: none; }
 a:visited       { text-decoration: none; }
 a:hover         { background-color: #7f92a5;}
 a:active        { text-decoration: underline; }
-h1              { font-family: 'Cinzel Decorative', cursive; margin: 0; color: #C4BFAD; font-size: 72px; text-shadow: 2px 2px 4px #000000; }
+h1              { font-family: 'Fredericka the Great', cursive; margin: 0; color: #C4BFAD; font-size: 72px; text-shadow: 2px 2px 4px #000000; }
 h2              { font-family: 'Cinzel'; font-size: 1.5em; serif; margin: 0; color: #93918e;}
+h3              { font-family: sans-serif; font-size: 18px; margin: 0;}
 h1              { border-bottom: 2px solid #eee; }
-.logo-img img   { width: 32px; height: 32px; }
+hr              { border-color: lightgray; }
+
+.logo-img img   { width: 32px; height: 32px; margin-right: 10px; }
 
 .container      { max-width: 1000px; }
 .page           { margin: 3em auto; width: 95%; border-radius: 25px; border: 2px solid #ccc;
                   padding: 0.8em; background: #f6f3ee; }
 .entries        { list-style: none; margin: 0; padding: 0; }
 .entries li     { margin: 0.8em 1.2em; }
-.entries li h2  { margin-left: -1em; margin-bottom: 0; }
+.entries li h2  { margin-left: -1em; margin-bottom: -2; }
 .add-entry      { font-size: 0.9em; border-bottom: 1px solid #ccc; }
 .add-entry dl   { font-weight: bold; }
 .metanav        { text-align: right; font-size: 0.8em; padding: 0.3em;
@@ -33,4 +36,4 @@ h1              { border-bottom: 2px solid #eee; }
 .hide           { display: none; }
 
 .center         { margin: auto; width: 90%; padding: 10px; }
-.btn            { width: 180px; }
+.btn            { width: 180px; float: right;} 

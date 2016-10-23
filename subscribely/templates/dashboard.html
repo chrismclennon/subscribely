@@ -7,18 +7,17 @@
   {% for s in subscriptions %}
     <li>
       <div class="{% if s.is_active %}subscription active{% else %}subscription inactive{% endif %}">
-        <img src="../static/{{s.name}}.png" alt="{{s.name}} Logo"> &nbsp;
-        <b>{{s.name}}</b> &nbsp;&nbsp;&nbsp;&nbsp;
-        <a class="{% if s.is_active %}hide{% else %}show btn btn-success{% endif %}" href="{{ url_for('enable_subscription', id=s.subscription_id) }}">Subscribe for ${{s.cost}}</a>
-        <a class="{% if s.is_active %}show btn btn-danger{% else %}hide{% endif %}" href="{{ url_for('disable_subscription', id=s.subscription_id) }}">Deactivate</a>
-        <br>
+        <h3><img src="../static/{{s.name}}.png" alt="{{s.name}} Logo"> {{s.name}}</h3> 
+        <hr>
         {% if s.is_active %}
-        Card: ****-****-****-{{s.last_four_credit_card}} &nbsp;&nbsp;&nbsp;&nbsp; Next Payment Date: {{s.next_charge_dt}} &nbsp;&nbsp;&nbsp;&nbsp; Next Payment Charge: ${{s.cost}}<br>
+        <a class="btn btn-danger" href="{{ url_for('disable_subscription', id=s.subscription_id) }}">Deactivate</a>
+        <b>Card:</b> ****-****-****-{{s.last_four_credit_card}} &nbsp;&nbsp;&nbsp;&nbsp; <b>Next Payment Date:</b> {{s.next_charge_dt}} &nbsp;&nbsp;&nbsp;&nbsp; <b>Next Payment Charge:</b> ${{s.cost}}<br>
         <a href="{{ url_for('update_credentials') }}">Change credentials</a>
         {% elif s.next_charge_dt and s.next_charge_dt > current_date %}
         Membership expires on {{ s.next_charge_dt }}.<br>
         <a href="{{ url_for('update_credentials') }}">Change credentials</a>
         {% else %}
+        <a class="btn btn-success" href="{{ url_for('enable_subscription', id=s.subscription_id) }}">Subscribe for ${{s.cost}}</a>
         <a href="{{ url_for('update_credentials') }}">Set credentials</a>
         {% endif %}
       </div></li>
