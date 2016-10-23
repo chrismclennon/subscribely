@@ -1,12 +1,15 @@
-body            { font-family: serif; background-image: url('./placeholder.jpg'); background-repeat: no-repeat; }
-a               { color: #377BA8; }
-h1              { font-family: 'Cinzel Decorative', cursive; margin: 0; color: gray; font-size: 72px; text-shadow: 2px 2px 4px #000000; }
-h2              { font-family: 'Cinzel', serif; margin: 0; }
+body            { font-family: sans-serif; background-image: url('./placeholder.jpg'); background-repeat: repeat; }
+a               { color: #494847; }
+a:link          { text-decoration: none; }
+a:visited       { text-decoration: none; }
+a:hover         { background-color: #7f92a5;}
+a:active        { text-decoration: underline;}
+h1              { font-family: 'Cinzel Decorative', cursive; margin: 0; color: #93918e; font-size: 72px; text-shadow: 2px 2px 4px #000000; }
+h2              { font-family: 'Cinzel', serif; margin: 0; color: #93918e;}
 h1              { border-bottom: 2px solid #eee; }
-h2              { font-size: 1.2em; color: gray;}
 img             { width: 50px; height: 50px; }
 
-.container      { max-width: 1000px; }
+.container      { max-width: 1600px; }
 .page           { margin: 3em auto; width: 95%; border-radius: 25px; border: 2px solid #ccc;
                   padding: 0.8em; background: #f6f3ee; }
 .entries        { list-style: none; margin: 0; padding: 0; }
@@ -21,10 +24,14 @@ img             { width: 50px; height: 50px; }
 .error          { background: #F0D6D6; padding: 0.5em; }
 
 .subscription   { padding: 25px; line-height: 25px; border: 2px solid #eee; }
+.odd            { background-color: white; }
+.even           { background-color: whitesmoke; }
 #default        { font-size: 50px; }
 #footer          { text-align: center; }
 
 .show           { display: all;  }
 .hide           { display: none; }
 
-.center         { margin: auto; width: 50%; padding: 10px; }
+.center         { margin: auto; width: 90%; padding: 10px; }
+
+.btn            { -webkit-appearance: button; -moz-appearance: button; appearance: button; text-decoration: none; color: initial; }
