@@ -10,7 +10,6 @@
     <li>
       <div class="{% if s.is_active %}subscription active{% else %}subscription inactive{% endif %}">
         <h3><img class="logo-img" width="32px" height="32px" src="../static/{{s.name}}.png" alt="{{s.name}} Logo"> {{s.name}}</h3> 
-        <div id="loading"></div>
         <hr>
         {% if s.is_active %}
         <a class="btn btn-danger" href="{{ url_for('disable_subscription', id=s.subscription_id) }}">Deactivate</a>
@@ -20,10 +19,12 @@
         Membership expires on {{ s.next_charge_dt }}.<br>
         <a class="btn btn-success" onclick="loading();" href="{{ url_for('enable_gift_card', id=s.subscription_id) }}">Subscribe with Gift Card</a>
         <a class="btn btn-success" onclick="loading();" href="{{ url_for('enable_subscription', id=s.subscription_id) }}">Subscribe for ${{s.cost}}</a>
+        <div id="loading"></div>
         <a href="{{ url_for('update_credentials') }}">Change credentials</a>
         {% else %}
         <a class="btn btn-success" onclick="loading();" href="{{ url_for('enable_gift_card', id=s.subscription_id) }}">Subscribe with Gift Card</a>
         <a class="btn btn-success" onclick="loading();" href="{{ url_for('enable_subscription', id=s.subscription_id) }}">Subscribe for ${{s.cost}}</a>
+        <div id="loading"></div>
         <a href="{{ url_for('update_credentials') }}">Set credentials</a>
         {% endif %}
       </div></li>
