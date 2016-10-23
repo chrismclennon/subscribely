@@ -36,4 +36,4 @@ hr              { border-color: lightgray; }
 .hide           { display: none; }
 
 .center         { margin: auto; width: 90%; padding: 10px; }
-.btn            { width: 180px; float: right;}
+.btn            { width: 180px; margin: 3px; float: right;}
