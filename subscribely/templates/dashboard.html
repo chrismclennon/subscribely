@@ -3,11 +3,14 @@
   {% if session.logged_in %}
   {% endif %}
     <!-- <h2>All Subscriptions</h2> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
   <ul class="entries">
   {% for s in subscriptions %}
     <li>
       <div class="{% if s.is_active %}subscription active{% else %}subscription inactive{% endif %}">
         <h3><img class="logo-img" width="32px" height="32px" src="../static/{{s.name}}.png" alt="{{s.name}} Logo"> {{s.name}}</h3> 
+        <div id="loading"></div>
         <hr>
         {% if s.is_active %}
         <a class="btn btn-danger" href="{{ url_for('disable_subscription', id=s.subscription_id) }}">Deactivate</a>
@@ -15,12 +18,12 @@
         <a href="{{ url_for('update_credentials') }}">Change credentials</a>
         {% elif s.next_charge_dt and s.next_charge_dt > current_date %}
         Membership expires on {{ s.next_charge_dt }}.<br>
-        <a class="btn btn-success" href="{{ url_for('enable_gift_card', id=s.subscription_id) }}">Subscribe with Gift Card</a>
-        <a class="btn btn-success" href="{{ url_for('enable_subscription', id=s.subscription_id) }}">Subscribe for ${{s.cost}}</a>
+        <a class="btn btn-success" onclick="loading();" href="{{ url_for('enable_gift_card', id=s.subscription_id) }}">Subscribe with Gift Card</a>
+        <a class="btn btn-success" onclick="loading();" href="{{ url_for('enable_subscription', id=s.subscription_id) }}">Subscribe for ${{s.cost}}</a>
         <a href="{{ url_for('update_credentials') }}">Change credentials</a>
         {% else %}
-        <a class="btn btn-success" href="{{ url_for('enable_gift_card', id=s.subscription_id) }}">Subscribe with Gift Card</a>
-        <a class="btn btn-success" href="{{ url_for('enable_subscription', id=s.subscription_id) }}">Subscribe for ${{s.cost}}</a>
+        <a class="btn btn-success" onclick="loading();" href="{{ url_for('enable_gift_card', id=s.subscription_id) }}">Subscribe with Gift Card</a>
+        <a class="btn btn-success" onclick="loading();" href="{{ url_for('enable_subscription', id=s.subscription_id) }}">Subscribe for ${{s.cost}}</a>
         <a href="{{ url_for('update_credentials') }}">Set credentials</a>
         {% endif %}
       </div></li>
@@ -28,4 +31,10 @@
   </ul>
   <div id="footer">Made with &#9829; at Money20/20 Hackathon 2016<br>
   Powered by <a href="https://modopayments.com/">Modo Payments</a></div>
+  <script type="text/javascript">// <![CDATA[
+        function loading(){
+            $("#loading").show();
+            $("#content").hide();       
+        }
+// ]]></script>
 {% endblock %}
