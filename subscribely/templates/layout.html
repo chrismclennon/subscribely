@@ -10,7 +10,7 @@
   {% if not session.logged_in %}
     <a href="{{ url_for('login') }}">Log In</a> | <a href="#">Sign Up</a>
   {% else %}
-    <a href="{{ url_for('logout') }}">Log Out</a>
+    <a href="{{ url_for('dashboard') }}">Dashboard</a> | <a href="{{ url_for('payment_methods')}}">Payment Preferences</a> | <a href="{{ url_for('logout') }}">Log Out</a>
   {% endif %}
   </div>
 

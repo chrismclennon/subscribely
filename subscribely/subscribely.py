@@ -57,7 +57,7 @@ def dashboard():
     return render_template('dashboard.html', subscriptions=subscriptions)
 
 @app.route('/subscriptions/<id>/enable', methods=['POST'])
-def enable_subscription():
+def enable_subscription(id):
     # TODO: authenticate and enable subscription
     flash('Subscription successfully enabled.')
     return redirect(url_for('dashboard'))

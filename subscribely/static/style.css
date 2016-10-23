@@ -1,7 +1,7 @@
-body            { font-family: sans-serif; background-image: url('./placeholder.jpg'); background-repeat: no-repeat; }
+body            { font-family: serif; background-image: url('./placeholder.jpg'); background-repeat: no-repeat; }
 a               { color: #377BA8; }
 h1              { font-family: 'Cinzel Decorative', cursive; margin: 0; color: gray; font-size: 72px; text-shadow: 2px 2px 4px #000000; }
-h2              { font-family: 'Verdana', serif; margin: 0; }
+h2              { font-family: 'Georgia', serif; margin: 0; }
 h1              { border-bottom: 2px solid #eee; }
 h2              { font-size: 1.2em; color: gray;}
 img             { width: 50px; height: 50px; }
